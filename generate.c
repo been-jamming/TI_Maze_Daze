@@ -3,6 +3,7 @@
 #include <tigcclib.h>
 #include "extgraph.h"
 #include "maze.h"
+#include "render.h"
 
 /*
  * Prim's Algorithm on Ti89 for maze generation
@@ -106,7 +107,11 @@ void delete_block(level *l, unsigned char x, unsigned char y){
 	l->blocks[x>>3][y] &= ~(1U<<(x&7));
 }
 
-unsigned char get_block(level *l, unsigned char x, unsigned char y){
+unsigned char get_block(level *l, char x, char y){
+	if(x < 0 || x > 98 || y < 0 || y > 98){
+		return 0;
+	}
+
 	return l->blocks[x>>3][y]&(1U<<(x&7));
 }
 
@@ -166,8 +171,8 @@ level *generate_level(){
 	build_level(output, m);
 	free(m);
 
-	output->player.x = (rand()%49 + 1)>>1 - 1;
-	output->player.y = (rand()%49 + 1)>>1 - 1;
+	output->player_x = (rand()%49 + 1)>>1 - 1;
+	output->player_y = (rand()%49 + 1)>>1 - 1;
 
 	return output;
 }
@@ -178,7 +183,11 @@ void _main(){
 	randomize();
 	clrscr();
 	l = generate_level();
+	l->player_x = (50U<<8) + (1U<<7);
+	l->player_y = (50U<<8) + (3U<<6);
 	display_level(l);
+	ngetchx();
+	render_level(l);
 	free(l);
 	ngetchx();
 }

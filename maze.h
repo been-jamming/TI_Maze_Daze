@@ -31,5 +31,7 @@ typedef struct level level;
 struct level{
 	unsigned char blocks[13][99];
 	unsigned char visible[13][99];
-	coord player;
+	unsigned int player_x;
+	unsigned int player_y;
+	unsigned char player_direction;
 };
