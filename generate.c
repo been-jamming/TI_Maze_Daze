@@ -171,23 +171,10 @@ level *generate_level(){
 	build_level(output, m);
 	free(m);
 
-	output->player_x = (rand()%49 + 1)>>1 - 1;
-	output->player_y = (rand()%49 + 1)>>1 - 1;
+	output->player_x = ((unsigned int) ((rand()%49)<<1) + 1)<<8;
+	output->player_y = ((unsigned int) ((rand()%49)<<1) + 1)<<8;
+	output->player_direction = RIGHT;
 
 	return output;
 }
 
-void _main(){
-	level *l;
-
-	randomize();
-	clrscr();
-	l = generate_level();
-	l->player_x = (50U<<8) + (1U<<7);
-	l->player_y = (50U<<8) + (3U<<6);
-	display_level(l);
-	ngetchx();
-	render_level(l);
-	free(l);
-	ngetchx();
-}
