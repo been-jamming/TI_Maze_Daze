@@ -1,2 +1,2 @@
 # TI_Maze_Daze
-Maze Runner game on Ti89
+(Work in Progress) Maze Runner game on Ti89
